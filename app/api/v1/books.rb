@@ -4,6 +4,7 @@ module V1
       desc 'returns all books'
       get '/' do
         @books = Book.all
+        present @books, with: V1::Entities::BookEntity
       end
 
       desc 'returns a book'
@@ -12,6 +13,7 @@ module V1
       end
       get '/:id' do
         @book = Book.find(params[:id])
+        present @book, with: V1::Entities::BookEntity
       end
 
       desc 'Create a book'
@@ -21,11 +23,19 @@ module V1
         requires :author_id, type: Integer
       end
       post '/' do
-        @book = Book.create(
+        @book = Book.new(
           titile: params[:title],
           price: params[:price],
           author_id: params[:author_id]
         )
+
+        if @book.save
+          status 201
+          present @book, with: V1::Entities::BookEntity
+        else
+          status 400
+          present @book.errors
+        end
       end
     end
   end
