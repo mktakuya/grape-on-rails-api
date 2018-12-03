@@ -24,7 +24,7 @@ module V1
       end
       post '/' do
         @book = Book.new(
-          titile: params[:title],
+          title: params[:title],
           price: params[:price],
           author_id: params[:author_id]
         )
