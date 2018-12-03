@@ -3,7 +3,6 @@ module V1
     class AuthorEntity < Grape::Entity
       expose :id
       expose :name
-      expose :books, using: V1::Entities::BookEntity
     end
   end
 end
