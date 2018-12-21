@@ -21,6 +21,8 @@ module V1
         requires :name, type: String
       end
       post '/' do
+        authenticate!
+
         @author = Author.new(name: params[:name])
 
         if @author.save
