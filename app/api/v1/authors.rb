@@ -1,24 +1,31 @@
 module V1
   class Authors < Grape::API
     resources :authors do
-      desc 'returns all authors'
+      desc 'returns all authors', {
+        is_array: true,
+        success: V1::Entities::AuthorEntity
+      }
       get '/' do
         @authors = Author.all
         present @authors, with: V1::Entities::AuthorEntity
       end
 
-      desc 'returns an author'
+      desc 'returns an author', {
+        success: V1::Entities::AuthorEntity
+      }
       params do
-        requires :id, type: Integer
+        requires :id, type: Integer, desc: 'Author ID'
       end
       get '/:id' do
         @author = Author.find(params[:id])
         present @author, with: V1::Entities::AuthorEntity
       end
 
-      desc 'Create an author'
+      desc 'Create an author', {
+        success: V1::Entities::AuthorEntity
+      }
       params do
-        requires :name, type: String
+        requires :name, type: String, desc: 'Author name'
       end
       post '/' do
         authenticate!
@@ -36,7 +43,7 @@ module V1
 
       desc 'Delete an author'
       params do
-        requires :id, type: Integer
+        requires :id, type: Integer, desc: "Author ID"
       end
       delete '/:id' do
         @author = Author.find(params[:id])

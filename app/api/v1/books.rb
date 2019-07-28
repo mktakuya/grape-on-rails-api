@@ -1,13 +1,18 @@
 module V1
   class Books < Grape::API
     resources :books do
-      desc 'returns all books'
+      desc 'returns all books', {
+        is_array: true,
+        success: V1::Entities::BookEntity
+      }
       get '/' do
         @books = Book.all
         present @books, with: V1::Entities::BookEntity
       end
 
-      desc 'returns a book'
+      desc 'returns a book', {
+        success: V1::Entities::BookEntity
+      }
       params do
         requires :id, type: Integer
       end
@@ -16,7 +21,9 @@ module V1
         present @book, with: V1::Entities::BookEntity
       end
 
-      desc 'Create a book'
+      desc 'Create a book', {
+        success: V1::Entities::BookEntity
+      }
       params do
         requires :title, type: String
         requires :price, type: Integer
