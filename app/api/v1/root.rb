@@ -20,5 +20,13 @@ module V1
     mount V1::Users
     mount V1::Authors
     mount V1::Books
+
+    add_swagger_documentation(
+      doc_version: '1.0.0',
+      info: {
+        title: 'grape-on-rails-api',
+        description: 'grape-on-rails-api API document',
+      }
+    )
   end
 end
