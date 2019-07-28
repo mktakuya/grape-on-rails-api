@@ -30,6 +30,9 @@ gem 'rack-cors'
 
 gem 'grape'
 gem 'grape-entity'
+gem 'grape-swagger', '~> 0.33.0'
+gem 'grape-swagger-entity', '~> 0.3.3'
+gem 'swagger_ui_engine', '~> 1.1', '>= 1.1.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
